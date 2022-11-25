@@ -5,21 +5,31 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_home">
 
+    <!--Home Fragment-->
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.ciklum.weatherapp.ui.home.HomeFragment"
+        android:name="com.ciklum.weatherapp.features.addlocation.mylocation.Home"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
+    <!--Choose Current Location Fragment-->
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.ciklum.weatherapp.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_my_location"
+        android:name="com.ciklum.weatherapp.features.addlocation.mylocation.MyLocation"
+        android:label="@string/menu_my_location"
+        tools:layout="@layout/fragment_mylocation" />
 
+    <!--Add/Remove Location Fragment-->
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.ciklum.weatherapp.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_add_location"
+        android:name="com.ciklum.weatherapp.features.addlocation.AddLocation"
+        android:label="@string/menu_add_location"
+        tools:layout="@layout/fragment_addlocation" />
+
+    <!--Add/Remove Favourites Fragment-->
+    <fragment
+        android:id="@+id/nav_favourites"
+        android:name="com.ciklum.weatherapp.features.favourites.Favourites"
+        android:label="@string/menu_favourites"
+        tools:layout="@layout/fragment_favourites" />
 </navigation>
