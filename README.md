@@ -1,5 +1,6 @@
 # DVT-Weather-App
-![awt_icon](https://user-images.githubusercontent.com/22744543/203963921-39d05aad-0ee2-4730-8997-39f0b5ab272b.png)
+![ic_launcher_round](https://user-images.githubusercontent.com/22744543/203968779-087e3958-3e42-4e57-8ac1-b664205cb48c.png)
+
 A small application to see daily weather conditions along with ability to see a forecast for specific location.
 
 
