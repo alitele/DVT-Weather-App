@@ -11,4 +11,25 @@
     <string name="menu_my_location">My Location</string>
     <string name="menu_add_location">Add Location</string>
     <string name="menu_favourites">Favourites</string>
+
+    <string name="connetion_alert">We could not establish a connection. Please try again</string>
+    <string name="alert_internet">There is poor or no internet available, please try again!</string>
+    <string name="error_message">Something went wrong, please try again</string>
+    <string name="degree_symbol">°</string>
+    <string name="title_city_picker">Choose Location</string>
+
+    <string-array name="city_list">
+        <item>Bangkok</item>
+        <item>London</item>
+        <item>Paris</item>
+        <item>Singapore</item>
+        <item>New York</item>
+        <item>Istanbul</item>
+        <item>Islamabad</item>
+        <item>Dubai</item>
+        <item>Kuala Lumpur</item>
+        <item>Hong Kong</item>
+        <item>Barcelona</item>
+    </string-array>
+
 </resources>

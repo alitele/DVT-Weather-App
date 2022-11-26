@@ -1,11 +1,14 @@
-package com.ciklum.weatherapp.features.home
+package com.ciklum.weatherapp.features.home.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.ciklum.weatherapp.R
 import com.ciklum.weatherapp.databinding.ItemForecastBinding
+import com.ciklum.weatherapp.features.home.model.Weather
+import com.ciklum.weatherapp.utils.Helper
 
 class AdapterForecast() :
     RecyclerView.Adapter<AdapterForecast.ForecastViewHolder>() {
@@ -33,6 +36,20 @@ class AdapterForecast() :
 
         with(holder.binding) {
             val currentObj = differ.currentList[position]
+            tvDay.text = Helper.getDateString(currentObj.dt)
+
+            "${currentObj.main?.temp.toString()}${
+                tvTemperature.context.resources.getString(
+                    R.string.degree_symbol
+                )
+            }".also { tvTemperature.text = it }
+
+            when (currentObj.weather[0].icon) {
+                "01n", "01d", "50n", "50d" -> ivIcon.setImageResource(R.drawable.clear)
+                "02n", "02d", "03n", "03d", "04n", "04d" -> ivIcon.setImageResource(R.drawable.partlysunny)
+                "09n", "09d", "10n", "10d", "11n", "11d", "13n", "13d" -> ivIcon.setImageResource(R.drawable.rain)
+            }
+
         }
     }
 
@@ -43,16 +60,16 @@ class AdapterForecast() :
     /**
      * DIFF CALLBACK
      */
-    private val differCallback = object : DiffUtil.ItemCallback<Forecast>() {
-        override fun areItemsTheSame(oldItem: Forecast, newItem: Forecast): Boolean {
-            return oldItem.day == newItem.day
+    private val differCallback = object : DiffUtil.ItemCallback<Weather>() {
+        override fun areItemsTheSame(oldItem: Weather, newItem: Weather): Boolean {
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(
-            oldItem: Forecast,
-            newItem: Forecast
+            oldItem: Weather,
+            newItem: Weather
         ): Boolean {
-            return oldItem.areBothObjectsSame(oldItem, newItem)
+            return oldItem == newItem
         }
     }
     val differ = AsyncListDiffer(this, differCallback)

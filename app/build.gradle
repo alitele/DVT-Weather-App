@@ -12,7 +12,6 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -20,6 +19,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", "\"https://api.openweathermap.org/data/2.5/\""
+            buildConfigField "String", "API_KEY", "\"9c943611ccae1b9df97b2ca81d4adfb4\""
+        }
+
+        debug {
+            buildConfigField "String", "BASE_URL", "\"https://api.openweathermap.org/data/2.5/\""
+            buildConfigField "String", "API_KEY", "\"9c943611ccae1b9df97b2ca81d4adfb4\""
         }
     }
     compileOptions {
@@ -31,6 +37,7 @@ android {
     }
     buildFeatures {
         viewBinding true
+        dataBinding true
     }
 }
 
@@ -72,8 +79,8 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
 
-    //Loading Indicator
-    //implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+    //Location
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'

@@ -8,7 +8,7 @@
     <!--Home Fragment-->
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.ciklum.weatherapp.features.addlocation.mylocation.Home"
+        android:name="com.ciklum.weatherapp.features.home.ui.Home"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
@@ -22,14 +22,14 @@
     <!--Add/Remove Location Fragment-->
     <fragment
         android:id="@+id/nav_add_location"
-        android:name="com.ciklum.weatherapp.features.addlocation.AddLocation"
+        android:name="com.ciklum.weatherapp.features.addlocation.ui.AddLocation"
         android:label="@string/menu_add_location"
         tools:layout="@layout/fragment_addlocation" />
 
     <!--Add/Remove Favourites Fragment-->
     <fragment
         android:id="@+id/nav_favourites"
-        android:name="com.ciklum.weatherapp.features.favourites.Favourites"
+        android:name="com.ciklum.weatherapp.features.favourites.ui.Favourites"
         android:label="@string/menu_favourites"
         tools:layout="@layout/fragment_favourites" />
 </navigation>

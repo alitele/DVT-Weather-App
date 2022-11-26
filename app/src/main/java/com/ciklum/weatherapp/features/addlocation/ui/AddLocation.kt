@@ -1,4 +1,4 @@
-package com.ciklum.weatherapp.features.addlocation
+package com.ciklum.weatherapp.features.addlocation.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.ciklum.weatherapp.databinding.FragmentAddlocationBinding
+import com.ciklum.weatherapp.features.addlocation.viewmodel.AddLocationViewModel
 
 class AddLocation : Fragment() {
 
@@ -23,7 +24,7 @@ class AddLocation : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val galleryViewModel =
-            ViewModelProvider(this).get(GalleryViewModel::class.java)
+            ViewModelProvider(this).get(AddLocationViewModel::class.java)
 
         _binding = FragmentAddlocationBinding.inflate(inflater, container, false)
         val root: View = binding.root

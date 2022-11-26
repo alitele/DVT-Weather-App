@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rainy"
-    tools:context=".features.addlocation.mylocation.Home">
+    android:id="@+id/container_main"
+    tools:context=".features.home.ui.Home">
 
     <!--Forecast View-->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,8 +23,7 @@
             <ImageView
                 android:id="@+id/iv_condition"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/sea_rainy"
+                android:layout_height="320dp"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -33,7 +32,12 @@
                 android:id="@+id/tv_temperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="15°"
+                android:includeFontPadding="false"
+                android:shadowColor="@color/color_primary"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="--"
                 android:textSize="40sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/tv_condition"
@@ -44,23 +48,44 @@
                 android:id="@+id/tv_condition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RAINY"
+                android:includeFontPadding="false"
+                android:shadowColor="@color/color_primary"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="--"
                 android:textSize="36sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:shadowColor="@color/color_primary"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="--"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_condition" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:id="@+id/ll_minmax"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="10dp"
+            android:layout_marginHorizontal="5dp"
             android:weightSum="3"
-            app:layout_constraintBottom_toTopOf="@id/separator">
+            app:layout_constraintTop_toBottomOf="@+id/header">
 
             <!--Min temp view-->
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -73,7 +98,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:includeFontPadding="false"
-                    android:text="10°"
+                    android:shadowColor="@color/color_primary"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2"
+                    android:text="--"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/tv_title_min"
@@ -85,6 +114,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:includeFontPadding="false"
+                    android:shadowColor="@color/color_primary"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2"
                     android:text="min"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -103,7 +136,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:includeFontPadding="false"
-                    android:text="10°"
+                    android:shadowColor="@color/color_primary"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2"
+                    android:text="--"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/tv_title_current"
@@ -115,6 +152,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:includeFontPadding="false"
+                    android:shadowColor="@color/color_primary"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2"
                     android:text="Current"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -135,7 +176,11 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:includeFontPadding="false"
-                    android:text="10°"
+                    android:shadowColor="@color/color_primary"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2"
+                    android:text="--"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/tv_title_max"
@@ -147,6 +192,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:includeFontPadding="false"
+                    android:shadowColor="@color/color_primary"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2"
                     android:text="max"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -161,16 +210,33 @@
             android:layout_height="2dp"
             android:background="@color/white"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/rv_forecast" />
+            app:layout_constraintTop_toBottomOf="@+id/ll_minmax" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_forecast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginHorizontal="5dp"
+            app:layout_constraintTop_toBottomOf="@+id/separator"
             tools:itemCount="7"
             tools:listitem="@layout/item_forecast" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/indicator_bg"
+        android:indeterminate="true"
+        android:padding="10dp"
+        android:visibility="gone"
+        app:indeterminateAnimationType="contiguous"
+        app:indicatorSize="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

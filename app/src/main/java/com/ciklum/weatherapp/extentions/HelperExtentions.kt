@@ -6,7 +6,6 @@ import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 
-
 fun AppCompatActivity.makeStatusBarTransparent() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
         window.apply {
@@ -23,4 +22,8 @@ fun AppCompatActivity.makeStatusBarTransparent() {
         }
     }
 
+}
+
+fun <T> T?.notNull(f: (it: T) -> Unit) {
+    if (this != null) f(this)
 }

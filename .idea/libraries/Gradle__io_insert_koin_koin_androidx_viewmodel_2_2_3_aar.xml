@@ -2,7 +2,6 @@
   <library name="Gradle: io.insert-koin:koin-androidx-viewmodel:2.2.3@aar">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/44908cf7a930b6ccb668afa31634c5c3/transformed/koin-androidx-viewmodel-2.2.3/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/44908cf7a930b6ccb668afa31634c5c3/transformed/koin-androidx-viewmodel-2.2.3/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/44908cf7a930b6ccb668afa31634c5c3/transformed/koin-androidx-viewmodel-2.2.3/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
