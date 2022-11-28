@@ -5,10 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.ciklum.weatherapp.database.entities.LocationEntity
 import com.ciklum.weatherapp.databinding.ItemFavouriteBinding
-import com.ciklum.weatherapp.databinding.ItemForecastBinding
-import com.ciklum.weatherapp.features.favourites.model.Favourite
-import com.ciklum.weatherapp.features.home.model.Forecast
 
 class AdapterFavourites() :
     RecyclerView.Adapter<AdapterFavourites.FavouriteViewHolder>() {
@@ -36,7 +34,7 @@ class AdapterFavourites() :
 
         with(holder.binding) {
             val currentObj = differ.currentList[position]
-            tvLocation.text =currentObj.location
+            tvLocation.text = currentObj.locationName
             ivDelete.setOnClickListener { itemOnClick(currentObj) }
         }
     }
@@ -48,16 +46,16 @@ class AdapterFavourites() :
     /**
      * DIFF CALLBACK
      */
-    private val differCallback = object : DiffUtil.ItemCallback<Favourite>() {
-        override fun areItemsTheSame(oldItem: Favourite, newItem: Favourite): Boolean {
-            return oldItem.location == newItem.location
+    private val differCallback = object : DiffUtil.ItemCallback<LocationEntity>() {
+        override fun areItemsTheSame(oldItem: LocationEntity, newItem: LocationEntity): Boolean {
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: Favourite,
-            newItem: Favourite
+            oldItem: LocationEntity,
+            newItem: LocationEntity
         ): Boolean {
-            return oldItem.areBothObjectsSame(oldItem, newItem)
+            return oldItem.id == newItem.id
         }
     }
     val differ = AsyncListDiffer(this, differCallback)
@@ -65,17 +63,16 @@ class AdapterFavourites() :
     /**
      * ITEM CLICK LISTENERS
      */
-    private var onItemClickListener: ((favourite: Favourite) -> Unit)? = null
-    fun setOnItemClickListener(listener: (favourite: Favourite) -> Unit) {
+    private var onItemClickListener: ((locationEntity: LocationEntity) -> Unit)? = null
+    fun setOnItemClickListener(listener: (locationEntity: LocationEntity) -> Unit) {
         onItemClickListener = listener
     }
 
     /**
      * HELPER FUNCTIONS
      */
-    private fun itemOnClick(favourite: Favourite) {
-        onItemClickListener?.let { it(favourite) }
+    private fun itemOnClick(locationEntity: LocationEntity) {
+        onItemClickListener?.let { it(locationEntity) }
     }
-
 
 }

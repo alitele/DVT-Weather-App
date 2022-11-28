@@ -12,6 +12,7 @@ interface Endpoints {
     suspend fun fetchCurrentWeather(
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
+        @Query("q") query:String,
         @Query("appid") api_key: String,
         @Query("units") units:String
     ): Response<Weather>
@@ -21,6 +22,7 @@ interface Endpoints {
     suspend fun fetchForecastWeather(
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
+        @Query("q") query:String,
         @Query("appid") api_key: String,
         @Query("units") units:String
     ): Response<Forecast>

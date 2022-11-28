@@ -27,3 +27,15 @@ fun AppCompatActivity.makeStatusBarTransparent() {
 fun <T> T?.notNull(f: (it: T) -> Unit) {
     if (this != null) f(this)
 }
+
+fun View.visible() {
+    this.visibility = View.VISIBLE
+}
+
+fun View.invisible() {
+    this.visibility = View.INVISIBLE
+}
+
+fun View.gone() {
+    this.visibility = View.GONE
+}

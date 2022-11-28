@@ -4,22 +4,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ciklum.weatherapp.R
-import com.ciklum.weatherapp.features.main.ui.BaseFragment
+import com.ciklum.weatherapp.database.entities.LocationEntity
 import com.ciklum.weatherapp.databinding.FragmentFavouritesBinding
-import com.ciklum.weatherapp.features.favourites.model.Favourite
 import com.ciklum.weatherapp.features.favourites.viewmodel.FavouritesViewModel
+import com.ciklum.weatherapp.features.home.repository.HomeRepository
+import com.ciklum.weatherapp.features.home.ui.Home
+import com.ciklum.weatherapp.features.main.ui.BaseFragment
+import com.ciklum.weatherapp.features.main.ui.MainActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+
 class Favourites : BaseFragment() {
 
-    private var _binding: FragmentFavouritesBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private lateinit var _binding: FragmentFavouritesBinding
+    private val binding get() = _binding
     lateinit var root: View
     private lateinit var adapterFavourites: AdapterFavourites
     private val viewModel by viewModel<FavouritesViewModel>()
@@ -31,7 +35,6 @@ class Favourites : BaseFragment() {
     ): View {
         _binding = FragmentFavouritesBinding.inflate(inflater, container, false)
         root = binding.root
-
         init()
         setupRecyclerView()
         fetchFavourites()
@@ -43,14 +46,17 @@ class Favourites : BaseFragment() {
         binding.fabAdd.setOnClickListener { pickLocation() }
     }
 
-    private fun pickLocation()
-    {
-        val cities= resources.getStringArray(R.array.city_list)
+    private fun pickLocation() {
+        val cities = resources.getStringArray(R.array.city_list)
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(resources.getString(R.string.title_city_picker))
-            .setItems(cities) { dialog, which ->
+            .setItems(cities) { _, which ->
                 // Respond to item chosen
-                viewModel.addNewFavourite(Favourite(which, cities[which]))
+                viewModel.addNewFavourite(
+                    LocationEntity(
+                        locationName = cities[which]
+                    )
+                )
             }
             .show()
     }
@@ -66,28 +72,19 @@ class Favourites : BaseFragment() {
                 androidx.recyclerview.widget.RecyclerView.VERTICAL,
                 false
             )
-
         }
 
-        adapterFavourites.setOnItemClickListener { favourite ->
-            viewModel.removeNewFavourite(favourite)
+        adapterFavourites.setOnItemClickListener { location ->
+            viewModel.removeNewFavourite(location)
         }
 
     }
 
     private fun fetchFavourites() {
-        //Getting favourites from store
-        viewModel.fetchFavourites()
-
         //Observing and setting favourites
-        viewModel.onFetchFavourites.observe(viewLifecycleOwner) {
-            adapterFavourites.differ.submitList(it)
-        }
+        viewModel.getAllFavourites().observe(viewLifecycleOwner, Observer {
+            adapterFavourites.differ.submitList(it.filter { f -> !f.isMyLocation })
+        })
     }
 
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }

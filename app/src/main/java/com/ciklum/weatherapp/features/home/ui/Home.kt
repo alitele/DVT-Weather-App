@@ -2,17 +2,23 @@ package com.ciklum.weatherapp.features.home.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ciklum.weatherapp.R
+import com.ciklum.weatherapp.database.entities.LocationEntity
 import com.ciklum.weatherapp.databinding.FragmentHomeBinding
+import com.ciklum.weatherapp.extentions.gone
 import com.ciklum.weatherapp.extentions.notNull
+import com.ciklum.weatherapp.extentions.visible
 import com.ciklum.weatherapp.features.home.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class Home : Fragment() {
 
@@ -20,6 +26,8 @@ class Home : Fragment() {
     private lateinit var adapterForecast: AdapterForecast
     private val viewModel by viewModel<HomeViewModel>()
     private val binding get() = _binding!!
+    private var locations: List<LocationEntity> = emptyList()
+    private var currentIndex: Int = -1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,9 +37,8 @@ class Home : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
+        initListeners()
         setupRecyclerView()
-        fetchData()
         observeData()
         return root
     }
@@ -45,52 +52,109 @@ class Home : Fragment() {
         }
     }
 
+    private fun initListeners() {
+        with(binding)
+        {
+            ivLeft.setOnClickListener {
+                if (currentIndex > 0) {
+                    currentIndex--
+                    fetchData()
+                    ivRight.isEnabled = true
+                } else {
+                    ivLeft.isEnabled = true
+                }
+            }
+
+            ivRight.setOnClickListener {
+                if (currentIndex < locations.size - 1) {
+                    currentIndex++
+                    fetchData()
+                    ivLeft.isEnabled = true
+                } else {
+                    ivRight.isEnabled = false
+                }
+            }
+        }
+    }
+
     private fun fetchData() {
-        viewModel.fetchCurrentWeather()
-        viewModel.fetchForeCastWeather()
+        binding.progressBar.show()
+        viewModel.getWeatherForLocation(locations[currentIndex].id)
+        viewModel.getForecastForLocation(locations[currentIndex].id)
     }
 
     @SuppressLint("SetTextI18n")
     private fun observeData() {
-        viewModel.onFetchForecast.observe(viewLifecycleOwner) {
-            adapterForecast.differ.submitList(it.list)
-        }
 
-        viewModel.onFetchWeather.observe(viewLifecycleOwner)
-        {
+        viewModel.getAllFavourites().observe(viewLifecycleOwner, Observer {
+            locations = it
+            if (locations.isNotEmpty()) {
+                if (currentIndex == -1) {
+                    currentIndex = 0
+                    fetchData()
+                }
+            }
+            Log.d("TAG", "observeData: $it")
+        })
+
+        viewModel.locationWeather.observe(viewLifecycleOwner, Observer { it ->
+            binding.progressBar.hide()
             it.notNull {
-                "${it.main?.tempMin.toString()}${resources.getString(R.string.degree_symbol)}".also {
+
+                binding.separator.visible()
+                binding.tvTitleMin.visible()
+                binding.tvTitleMax.visible()
+                binding.tvTitleCurrent.visible()
+                binding.tvWaiting.gone()
+                binding.llLocationSwitch.visible()
+
+                binding.progressBar.hide()
+
+                "${it.min}${resources.getString(R.string.degree_symbol)}".also {
                     binding.tvTemperatureMin.text = it
                 }
-                "${it.main?.tempMax.toString()}${resources.getString(R.string.degree_symbol)}".also {
+                "${it.max}${resources.getString(R.string.degree_symbol)}".also {
                     binding.tvTemperatureMax.text = it
                 }
-                "${it.main?.temp.toString()}${resources.getString(R.string.degree_symbol)}".also {
+                "${it.temp}${resources.getString(R.string.degree_symbol)}".also {
                     binding.tvTemperatureCurrent.text = it
                 }
-                "${it.main?.temp.toString()}${resources.getString(R.string.degree_symbol)}".also {
+                "${it.temp}${resources.getString(R.string.degree_symbol)}".also {
                     binding.tvTemperature.text = it
                 }
                 binding.tvCondition.text =
-                    it.weather[0].description?.replaceFirstChar(Char::titlecase)
+                    it.description?.replaceFirstChar(Char::titlecase)
+
+
+                when (it.condition) {
+                    "01n", "01d", "50n", "50d" -> {
+                        binding.ivCondition.setBackgroundResource(R.drawable.sea_cloudy)
+                        binding.containerMain.setBackgroundColor(resources.getColor(R.color.cloudy))
+                    }
+                    "02n", "02d", "03n", "03d", "04n", "04d" -> {
+                        binding.ivCondition.setBackgroundResource(R.drawable.sea_sunnypng)
+                        binding.containerMain.setBackgroundColor(resources.getColor(R.color.sunny))
+                    }
+                    "09n", "09d", "10n", "10d", "11n", "11d", "13n", "13d" -> {
+                        binding.ivCondition.setBackgroundResource(R.drawable.sea_rainy)
+                        binding.containerMain.setBackgroundColor(resources.getColor(R.color.rainy))
+                    }
+                }
+
+                if (it.isMyLocation)
+                    binding.tvLocation.text = "Current Location"
+                else
+                    binding.tvLocation.text = it.locationName
+
             }
 
-            when (it.weather[0].icon) {
-                "01n", "01d", "50n", "50d" -> {
-                    binding.ivCondition.setBackgroundResource(R.drawable.sea_cloudy)
-                    binding.containerMain.setBackgroundColor(resources.getColor(R.color.cloudy))
-                }
-                "02n", "02d", "03n", "03d", "04n", "04d" -> {
-                    binding.ivCondition.setBackgroundResource(R.drawable.sea_sunnypng)
-                    binding.containerMain.setBackgroundColor(resources.getColor(R.color.sunny))
-                }
-                "09n", "09d", "10n", "10d", "11n", "11d", "13n", "13d" -> {
-                    binding.ivCondition.setBackgroundResource(R.drawable.sea_rainy)
-                    binding.containerMain.setBackgroundColor(resources.getColor(R.color.rainy))
-                }
-            }
 
-            binding.tvLocation.text = it.name
+        })
+
+        viewModel.locationForecast.observe(viewLifecycleOwner) {
+            binding.tvWaiting.gone()
+            binding.progressBar.hide()
+            adapterForecast.differ.submitList(it.list)
         }
 
         viewModel.onToggleProgress.observe(viewLifecycleOwner) {
@@ -100,6 +164,7 @@ class Home : Fragment() {
                 binding.progressBar.hide()
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

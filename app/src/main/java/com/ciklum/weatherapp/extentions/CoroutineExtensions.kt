@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.ciklum.weatherapp.BuildConfig
 import com.ciklum.weatherapp.features.main.viewmodel.BaseViewModel
 import com.ciklum.weatherapp.app.WeatherApp
+import com.ciklum.weatherapp.features.main.viewmodel.BaseRepo
 import com.ciklum.weatherapp.network.api.ApiResult
 import com.ciklum.weatherapp.utils.ErrorResponse
 import kotlinx.coroutines.*

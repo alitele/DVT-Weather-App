@@ -1,30 +1,30 @@
 package com.ciklum.weatherapp.features.favourites.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import com.ciklum.weatherapp.database.entities.LocationEntity
+import com.ciklum.weatherapp.features.favourites.repository.FavouritesRepository
 import com.ciklum.weatherapp.features.main.viewmodel.BaseViewModel
-import com.ciklum.weatherapp.features.favourites.model.Favourite
-import com.ciklum.weatherapp.utils.SingleLiveEvent
-import com.ciklum.weatherapp.utils.preferences.WeatherPrefsImpl
-import org.koin.core.component.inject
+import kotlinx.coroutines.launch
 
+class FavouritesViewModel(private val repository: FavouritesRepository) : BaseViewModel() {
 
-class FavouritesViewModel : BaseViewModel() {
+    private val locationsList: LiveData<List<LocationEntity>> = repository.getAllLocations().asLiveData()
 
-    val onFetchFavourites = SingleLiveEvent<List<Favourite>>()
-    private val userPrefHelper by inject<WeatherPrefsImpl>()
-
-    fun fetchFavourites() {
-        onFetchFavourites.postValue(userPrefHelper.getAllFav())
-    }
-
-    fun addNewFavourite(favourite: Favourite) {
-        if (!userPrefHelper.getAllFav().contains(favourite)) {
-            userPrefHelper.addFav(favourite)
-            fetchFavourites()
+    fun addNewFavourite(locationEntity: LocationEntity) {
+        viewModelScope.launch {
+            repository.insertLocation(locationEntity)
         }
     }
 
-    fun removeNewFavourite(favourite: Favourite) {
-        userPrefHelper.removeFav(favourite.id)
-        fetchFavourites()
+    fun removeNewFavourite(locationEntity: LocationEntity) {
+        viewModelScope.launch {
+            repository.deleteLocation(locationEntity)
+        }
+    }
+
+    fun getAllFavourites(): LiveData<List<LocationEntity>> {
+        return locationsList
     }
 }

@@ -4,6 +4,8 @@ import android.app.Application
 import com.ciklum.weatherapp.BuildConfig
 import com.ciklum.weatherapp.injection.apiModule
 import com.ciklum.weatherapp.injection.appModule
+import com.ciklum.weatherapp.injection.databaseModule
+import com.ciklum.weatherapp.injection.repositoryModule
 import com.ciklum.weatherapp.injection.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -20,7 +22,7 @@ class WeatherApp : Application() {
         startKoin {
             androidLogger(if (BuildConfig.DEBUG) Level.ERROR else Level.NONE)
             androidContext(this@WeatherApp)
-            modules(listOf(appModule, viewModelModule, apiModule))
+            modules(listOf(appModule, viewModelModule, apiModule, databaseModule,repositoryModule))
         }
     }
 
