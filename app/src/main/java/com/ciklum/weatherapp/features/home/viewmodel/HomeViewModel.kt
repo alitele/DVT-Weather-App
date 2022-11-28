@@ -6,11 +6,9 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.ciklum.weatherapp.database.entities.LocationEntity
 import com.ciklum.weatherapp.features.home.model.Forecast
-import com.ciklum.weatherapp.features.home.model.Weather
 import com.ciklum.weatherapp.features.home.repository.HomeRepository
 import com.ciklum.weatherapp.features.main.viewmodel.BaseViewModel
 import com.ciklum.weatherapp.utils.SingleLiveEvent
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: HomeRepository) : BaseViewModel() {

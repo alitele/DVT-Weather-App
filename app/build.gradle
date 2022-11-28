@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id 'org.sonarqube'
 
 }
 
@@ -41,6 +42,15 @@ android {
     buildFeatures {
         viewBinding true
         dataBinding true
+    }
+
+    lintOptions {
+        abortOnError false
+        quiet true
+        lintConfig file("$project.rootDir/tools/rules-lint.xml")
+        htmlOutput file("$project.buildDir/outputs/lint/lint.html")
+        warningsAsErrors true
+        xmlReport false
     }
 }
 

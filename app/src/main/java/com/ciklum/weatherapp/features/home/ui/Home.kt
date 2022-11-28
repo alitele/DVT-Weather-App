@@ -19,7 +19,6 @@ import com.ciklum.weatherapp.extentions.visible
 import com.ciklum.weatherapp.features.home.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class Home : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
@@ -147,8 +146,6 @@ class Home : Fragment() {
                     binding.tvLocation.text = it.locationName
 
             }
-
-
         })
 
         viewModel.locationForecast.observe(viewLifecycleOwner) {

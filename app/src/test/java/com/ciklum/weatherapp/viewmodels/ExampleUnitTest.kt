@@ -1,4 +1,4 @@
-package com.ciklum.weatherapp
+package com.ciklum.weatherapp.viewmodels
 
 import org.junit.Test
 
@@ -11,7 +11,7 @@ import org.junit.Assert.*
  */
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
+    fun test_home_viewmodel_should_exist() {
         assertEquals(4, 2 + 2)
     }
 }

@@ -56,7 +56,6 @@ data class Weather(
         @SerializedName("all") var all: Int? = null
     )
 
-
     data class Sys(
         @SerializedName("type") var type: Int? = null,
         @SerializedName("id") var id: Int? = null,

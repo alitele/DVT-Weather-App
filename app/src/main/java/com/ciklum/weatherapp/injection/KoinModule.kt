@@ -6,24 +6,21 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.ciklum.weatherapp.BuildConfig
 import com.ciklum.weatherapp.database.daos.LocationDao
-import com.ciklum.weatherapp.features.addlocation.viewmodel.AddLocationViewModel
-import com.ciklum.weatherapp.features.home.viewmodel.HomeViewModel
-import com.ciklum.weatherapp.features.addlocation.mylocation.MyLocationViewModel
+import com.ciklum.weatherapp.database.db.WeatherDatabase
 import com.ciklum.weatherapp.features.favourites.repository.FavouritesRepository
 import com.ciklum.weatherapp.features.favourites.repository.FavouritesRepositoryImpl
 import com.ciklum.weatherapp.features.favourites.viewmodel.FavouritesViewModel
-import com.ciklum.weatherapp.features.main.viewmodel.MainViewModel
-import com.ciklum.weatherapp.utils.AppConfigs
-import com.google.gson.GsonBuilder
-import dk.zibralabs.m2call.migo.datasource.InterceptorManager
-import dk.zibralabs.m2call.migo.datasource.NoConnectionInterceptor
-import com.ciklum.weatherapp.network.api.Endpoints
-import com.ciklum.weatherapp.utils.CoroutineContextProvider
-import com.ciklum.weatherapp.utils.preferences.WeatherPrefsImpl
-import com.ciklum.weatherapp.database.db.WeatherDatabase
 import com.ciklum.weatherapp.features.home.repository.HomeRepository
 import com.ciklum.weatherapp.features.home.repository.HomeRepositoryImpl
-import com.ciklum.weatherapp.features.main.repository.MainRepository
+import com.ciklum.weatherapp.features.home.viewmodel.HomeViewModel
+import com.ciklum.weatherapp.features.main.viewmodel.MainViewModel
+import com.ciklum.weatherapp.network.api.Endpoints
+import com.ciklum.weatherapp.utils.AppConfigs
+import com.ciklum.weatherapp.utils.CoroutineContextProvider
+import com.ciklum.weatherapp.utils.preferences.WeatherPrefsImpl
+import com.google.gson.GsonBuilder
+import com.ciklum.weatherapp.network.api.InterceptorManager
+import com.ciklum.weatherapp.network.api.NoConnectionInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
@@ -48,9 +45,7 @@ val appModule = module {
 val viewModelModule = module {
     viewModel { MainViewModel() }
     viewModel { HomeViewModel(repository = get()) }
-    viewModel { AddLocationViewModel() }
     viewModel { FavouritesViewModel(repository = get()) }
-    viewModel { MyLocationViewModel() }
 }
 
 val apiModule = module {
@@ -109,10 +104,5 @@ val repositoryModule = module {
         return HomeRepositoryImpl(api, context, dao)
     }
     single { provideHomeRepository(get(), androidContext(), get()) }
-
-    fun provideMainRepository(context: Context, dao: LocationDao): MainRepository {
-        return provideMainRepository(context, dao)
-    }
-    single { provideMainRepository(androidContext(), get()) }
 
 }

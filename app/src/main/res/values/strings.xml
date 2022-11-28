@@ -17,6 +17,18 @@
     <string name="error_message">Something went wrong, please try again</string>
     <string name="degree_symbol">°</string>
     <string name="title_city_picker">Choose Location</string>
+    <string name="weatherapp">Weather</string>
+    <string name="favourites">Favourites</string>
+    <string name="addfav">AddFav</string>
+    <string name="weather_condition">weather condition</string>
+    <string name="left_image">left image</string>
+    <string name="right_image">right image</string>
+    <string name="min">Min</string>
+    <string name="current">Current</string>
+    <string name="max">Max</string>
+    <string name="waiting_to_fetching_live_location">Waiting To Fetching Live Location,\nmake sure location is Enabled from settings</string>
+    <string name="delete_image">delete image</string>
+    <string name="image_condition_icon">condition icon</string>
 
     <string-array name="city_list">
         <item>Bangkok</item>

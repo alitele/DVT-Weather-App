@@ -1,4 +1,4 @@
-package dk.zibralabs.m2call.migo.datasource
+package com.ciklum.weatherapp.network.api
 
 import android.content.Context
 import okhttp3.Interceptor

@@ -4,21 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ciklum.weatherapp.R
 import com.ciklum.weatherapp.database.entities.LocationEntity
 import com.ciklum.weatherapp.databinding.FragmentFavouritesBinding
 import com.ciklum.weatherapp.features.favourites.viewmodel.FavouritesViewModel
-import com.ciklum.weatherapp.features.home.repository.HomeRepository
-import com.ciklum.weatherapp.features.home.ui.Home
 import com.ciklum.weatherapp.features.main.ui.BaseFragment
-import com.ciklum.weatherapp.features.main.ui.MainActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
 
 class Favourites : BaseFragment() {
 

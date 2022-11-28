@@ -3,9 +3,7 @@ package com.ciklum.weatherapp.utils
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
-import android.util.Log
 import com.ciklum.weatherapp.app.WeatherApp
-import com.ciklum.weatherapp.database.entities.LocationEntity
 import com.ciklum.weatherapp.utils.preferences.AppResult
 import com.google.gson.GsonBuilder
 import retrofit2.Response

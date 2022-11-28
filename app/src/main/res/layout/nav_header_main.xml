@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:text="WeatherApp"
+        android:text="@string/weatherapp"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@id/iv_logo"
         app:layout_constraintStart_toEndOf="@+id/iv_logo"

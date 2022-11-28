@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="5dp"
     android:id="@+id/container"
     android:orientation="horizontal"
-    android:paddingEnd="10dp"
-    android:paddingVertical="5dp">
+    android:paddingEnd="@dimen/padding_fav_item"
+    android:paddingVertical="5dp"
+    tools:ignore="RtlSymmetry">
 
     <TextView
         android:id="@+id/tv_location"
@@ -19,7 +21,6 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="2"
-        android:text="Lahore"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,6 +33,7 @@
         android:src="@drawable/ic_remove"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/color_delete" />
+        app:tint="@color/color_delete"
+        android:contentDescription="@string/delete_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

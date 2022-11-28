@@ -26,7 +26,8 @@
                 android:layout_height="320dp"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/weather_condition" />
 
             <TextView
                 android:id="@+id/tv_temperature"
@@ -91,7 +92,8 @@
                 android:layout_gravity="end|top"
                 android:padding="5dp"
                 android:layout_margin="10dp"
-                android:src="@drawable/ic_left" />
+                android:src="@drawable/ic_left"
+                android:contentDescription="@string/left_image" />
 
             <ImageView
                 android:id="@+id/iv_right"
@@ -100,7 +102,8 @@
                 android:layout_gravity="end|top"
                 android:padding="5dp"
                 android:layout_margin="10dp"
-                android:src="@drawable/ic_right" />
+                android:src="@drawable/ic_right"
+                android:contentDescription="@string/right_image" />
         </LinearLayout>
 
         <LinearLayout
@@ -111,7 +114,8 @@
             android:orientation="horizontal"
             android:padding="10dp"
             android:weightSum="3"
-            app:layout_constraintTop_toBottomOf="@+id/ll_location_switch">
+            app:layout_constraintTop_toBottomOf="@+id/ll_location_switch"
+            android:baselineAligned="false">
 
             <!--Min temp view-->
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -142,7 +146,7 @@
                     android:shadowDx="1"
                     android:shadowDy="1"
                     android:shadowRadius="2"
-                    android:text="min"
+                    android:text="@string/min"
                     android:textSize="20sp"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -180,7 +184,7 @@
                     android:shadowDx="1"
                     android:shadowDy="1"
                     android:shadowRadius="2"
-                    android:text="Current"
+                    android:text="@string/current"
                     android:textSize="20sp"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -220,7 +224,7 @@
                     android:shadowDx="1"
                     android:shadowDy="1"
                     android:shadowRadius="2"
-                    android:text="max"
+                    android:text="@string/max"
                     android:textSize="20sp"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -271,8 +275,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/tv_waiting"
+        android:gravity="center_horizontal"
         android:layout_marginTop="200dp"
-        android:text="Waiting To Fetching Live Location"
+        android:text="@string/waiting_to_fetching_live_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

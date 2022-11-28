@@ -2,7 +2,6 @@ package com.ciklum.weatherapp.utils
 
 import android.content.Context
 import android.os.Looper
-import com.ciklum.weatherapp.features.main.ui.MainActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest

@@ -20,7 +20,6 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="2"
-        android:text="Sunday"
         android:textSize="20sp" />
 
     <ImageView
@@ -33,7 +32,8 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="2"
-        android:src="@drawable/clear" />
+        android:src="@drawable/clear"
+        android:contentDescription="@string/image_condition_icon" />
 
     <TextView
         android:id="@+id/tv_temperature"
@@ -47,7 +47,6 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="2"
-        android:text="20°"
         android:textSize="20sp" />
 
 </LinearLayout>

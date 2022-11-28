@@ -49,7 +49,6 @@ class AdapterForecast() :
                 "02n", "02d", "03n", "03d", "04n", "04d" -> ivIcon.setImageResource(R.drawable.partlysunny)
                 "09n", "09d", "10n", "10d", "11n", "11d", "13n", "13d" -> ivIcon.setImageResource(R.drawable.rain)
             }
-
         }
     }
 
