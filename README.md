@@ -4,3 +4,18 @@
 A small application to see daily weather conditions along with ability to see a forecast for specific location.
 
 
+### Achitecture and Components
+
+ * MVVM
+ * Moduler Code
+ * Static Analysis (Linter)
+ * Room
+ * Retrofit
+ * Repository Pattern
+ * Offline Storage
+ * Rest API
+ * Material Design
+
+
+
+
