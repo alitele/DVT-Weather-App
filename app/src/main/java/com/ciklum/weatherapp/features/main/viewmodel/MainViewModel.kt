@@ -28,8 +28,8 @@ class MainViewModel() : BaseViewModel() {
             currentLocation.lastUpdated=getCurrentTimestamp()
             currentLocation.lat = location.latitude
             currentLocation.lng = location.longitude
-            currentLocation.locationName = Helper.geoCodeLocation(location)
-            repository.weatherDao.deleteCurrLocations()
+            //currentLocation.locationName = Helper.geoCodeLocation(location)
+            //val existingLocation=repository.weatherDao.getCurrentLocation()
             repository.weatherDao.saveCurrentLocation(currentLocation)
         }
     }
