@@ -21,6 +21,7 @@ A small application to see daily weather conditions along with ability to see a 
  * Offline Storage
  * Rest API
  * Material Design
+ * Eventbus
  
  Note: Could not write unit test because of short time, will add later on.
  
