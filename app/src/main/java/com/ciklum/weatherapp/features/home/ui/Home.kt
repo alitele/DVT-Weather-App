@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +18,7 @@ import com.ciklum.weatherapp.extentions.gone
 import com.ciklum.weatherapp.extentions.notNull
 import com.ciklum.weatherapp.extentions.visible
 import com.ciklum.weatherapp.features.home.viewmodel.HomeViewModel
+import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Home : Fragment() {
@@ -79,7 +81,6 @@ class Home : Fragment() {
     private fun fetchData() {
         binding.progressBar.show()
         viewModel.getWeatherForLocation(locations[currentIndex].id)
-        viewModel.getForecastForLocation(locations[currentIndex].id)
     }
 
     @SuppressLint("SetTextI18n")
@@ -99,15 +100,29 @@ class Home : Fragment() {
         viewModel.locationWeather.observe(viewLifecycleOwner, Observer { it ->
             binding.progressBar.hide()
             it.notNull {
-
                 binding.separator.visible()
                 binding.tvTitleMin.visible()
                 binding.tvTitleMax.visible()
                 binding.tvTitleCurrent.visible()
                 binding.tvWaiting.gone()
                 binding.llLocationSwitch.visible()
-
+                binding.tvLocation.visible()
                 binding.progressBar.hide()
+
+                if (it.isMyLocation)
+                    binding.tvLocation.setCompoundDrawablesWithIntrinsicBounds(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_current_location
+                        ), null, null, null
+                    )
+                else
+                    binding.tvLocation.setCompoundDrawablesWithIntrinsicBounds(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_fav
+                        ), null, null, null
+                    )
 
                 "${it.min}${resources.getString(R.string.degree_symbol)}".also {
                     binding.tvTemperatureMin.text = it
@@ -122,7 +137,7 @@ class Home : Fragment() {
                     binding.tvTemperature.text = it
                 }
                 binding.tvCondition.text =
-                    it.description?.replaceFirstChar(Char::titlecase)
+                    it.description.replaceFirstChar(Char::titlecase)
 
 
                 when (it.condition) {
@@ -145,6 +160,7 @@ class Home : Fragment() {
                 else
                     binding.tvLocation.text = it.locationName
 
+                viewModel.getForecastForLocation(locations[currentIndex].id)
             }
         })
 

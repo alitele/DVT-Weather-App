@@ -1,11 +1,19 @@
 package com.ciklum.weatherapp.extentions
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Build
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.viewModelScope
+import com.ciklum.weatherapp.database.entities.LocationEntity
+import com.ciklum.weatherapp.features.main.viewmodel.BaseViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
+@SuppressLint("ObsoleteSdkInt")
 fun AppCompatActivity.makeStatusBarTransparent() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
         window.apply {
@@ -22,6 +30,26 @@ fun AppCompatActivity.makeStatusBarTransparent() {
         }
     }
 
+}
+
+fun BaseViewModel.uiJob(block: suspend CoroutineScope.() -> Unit): Job {
+    return viewModelScope.launch(coroutineContextProvider.Main) {
+        block()
+    }
+}
+
+fun BaseViewModel.ioJob(block: suspend CoroutineScope.() -> Unit): Job {
+    return viewModelScope.launch(coroutineContextProvider.IO) {
+        block()
+    }
+}
+
+fun LocationEntity.isNull(): Boolean {
+    return this == null
+}
+
+fun List<LocationEntity>.isNullOrEmpty(): Boolean {
+    return this == null || this.isEmpty()
 }
 
 fun <T> T?.notNull(f: (it: T) -> Unit) {

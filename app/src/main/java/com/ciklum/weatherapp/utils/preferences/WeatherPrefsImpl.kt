@@ -8,7 +8,6 @@ class WeatherPrefsImpl(
     var prefStore = SharedPrefStore(sharedPreferences)
 
     companion object {
-        private const val FAVOURITES = "favourite"
         private const val MY_LOCATION = "my_location"
     }
 

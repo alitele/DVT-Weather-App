@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class FavouritesViewModel(private val repository: FavouritesRepository) : BaseViewModel() {
 
-    private val locationsList: LiveData<List<LocationEntity>> = repository.getAllLocations().asLiveData()
+    private val favouritesList: LiveData<List<LocationEntity>> = repository.getAllLocations().asLiveData()
 
     fun addNewFavourite(locationEntity: LocationEntity) {
         viewModelScope.launch {
@@ -18,13 +18,13 @@ class FavouritesViewModel(private val repository: FavouritesRepository) : BaseVi
         }
     }
 
-    fun removeNewFavourite(locationEntity: LocationEntity) {
+    fun removeFavourite(locationEntity: LocationEntity) {
         viewModelScope.launch {
             repository.deleteLocation(locationEntity)
         }
     }
 
     fun getAllFavourites(): LiveData<List<LocationEntity>> {
-        return locationsList
+        return favouritesList
     }
 }

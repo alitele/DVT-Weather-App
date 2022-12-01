@@ -6,7 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
-@Entity(tableName = "Location")
+@Entity(tableName = "Location",indices = [Index(value = ["locationName"], unique = true)],)
 @Parcelize
 class LocationEntity(
     @PrimaryKey(autoGenerate = true)

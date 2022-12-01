@@ -1,6 +1,8 @@
 package com.ciklum.weatherapp.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.location.Location
 import android.os.Looper
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -29,9 +31,18 @@ class GeoLocationHelper(context: Context) {
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
     }
 
-    fun startLocationTracking(locationCallback: LocationCallback) {
+    @SuppressLint("MissingPermission")
+    fun startLocationTracking(
+        locationCallback: LocationCallback,
+        lastLocationCallback: LastLocationCallback
+    ) {
         if (!startedLocationTracking) {
             //noinspection MissingPermission
+
+            fusedLocationClient.lastLocation.addOnSuccessListener {
+                lastLocationCallback.lastLocationCallback(it)
+            }
+
             fusedLocationClient.requestLocationUpdates(
                 locationRequest,
                 locationCallback,
@@ -49,7 +60,11 @@ class GeoLocationHelper(context: Context) {
     }
 
     companion object {
-        const val UPDATE_INTERVAL_MILLISECONDS: Long = 0
+        const val UPDATE_INTERVAL_MILLISECONDS: Long = 1000 * 60
         const val FASTEST_UPDATE_INTERVAL_MILLISECONDS = UPDATE_INTERVAL_MILLISECONDS / 2
+    }
+
+    interface LastLocationCallback {
+        fun lastLocationCallback(location: Location)
     }
 }

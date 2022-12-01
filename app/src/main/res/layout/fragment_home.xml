@@ -24,10 +24,10 @@
                 android:id="@+id/iv_condition"
                 android:layout_width="match_parent"
                 android:layout_height="320dp"
+                android:contentDescription="@string/weather_condition"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/weather_condition" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_temperature"
@@ -59,19 +59,24 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
             <TextView
                 android:id="@+id/tv_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:includeFontPadding="false"
                 android:shadowColor="@color/color_primary"
                 android:shadowDx="1"
                 android:shadowDy="1"
                 android:shadowRadius="2"
-                android:textSize="16sp"
+                android:textSize="19sp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_condition" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_condition"
+                app:drawableStartCompat="@drawable/ic_current_location" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -90,20 +95,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|top"
-                android:padding="5dp"
                 android:layout_margin="10dp"
-                android:src="@drawable/ic_left"
-                android:contentDescription="@string/left_image" />
+                android:contentDescription="@string/left_image"
+                android:padding="5dp"
+                android:src="@drawable/ic_left" />
 
             <ImageView
                 android:id="@+id/iv_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|top"
-                android:padding="5dp"
                 android:layout_margin="10dp"
-                android:src="@drawable/ic_right"
-                android:contentDescription="@string/right_image" />
+                android:contentDescription="@string/right_image"
+                android:padding="5dp"
+                android:src="@drawable/ic_right" />
         </LinearLayout>
 
         <LinearLayout
@@ -111,11 +116,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
+            android:baselineAligned="false"
             android:orientation="horizontal"
             android:padding="10dp"
             android:weightSum="3"
-            app:layout_constraintTop_toBottomOf="@+id/ll_location_switch"
-            android:baselineAligned="false">
+            app:layout_constraintTop_toBottomOf="@+id/ll_location_switch">
 
             <!--Min temp view-->
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -270,15 +275,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/tv_waiting"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="200dp"
-        android:text="@string/waiting_to_fetching_live_location"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:gravity="center_horizontal"
+        android:text="@string/waiting_to_fetching_live_location"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

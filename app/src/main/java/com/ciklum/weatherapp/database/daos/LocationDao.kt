@@ -10,6 +10,9 @@ interface LocationDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLocation(locationEntity: LocationEntity)
 
+    @Update
+    suspend fun updateLocation(locationEntity: LocationEntity)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveCurrentLocation(locationEntity: LocationEntity)
 

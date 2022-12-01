@@ -4,33 +4,25 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Location
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.viewModelScope
 import com.ciklum.weatherapp.app.WeatherApp
-import com.ciklum.weatherapp.database.db.WeatherDatabase
-import com.ciklum.weatherapp.database.entities.LocationEntity
+import com.ciklum.weatherapp.commons.Constants.MIN_LOCATION_UPDATE_INTERVAL
+import com.ciklum.weatherapp.extentions.ioJob
+import com.ciklum.weatherapp.features.main.repository.MainRepository
 import com.ciklum.weatherapp.utils.Helper
 import com.ciklum.weatherapp.utils.Helper.getCurrentTimestamp
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import org.koin.core.component.inject
+import java.util.*
 
-class MainViewModel() : BaseViewModel() {
-    val repository by inject<WeatherDatabase>()
+class MainViewModel(private val repository: MainRepository) : BaseViewModel() {
 
     fun saveCurrentLocation(location: Location) {
-        viewModelScope.launch(Dispatchers.IO) {
-            var currentLocation = repository.weatherDao.getCurrentLocation()
-
-            if (currentLocation == null)
-                currentLocation = LocationEntity()
-
+        ioJob {
+            val currentLocation = repository.getCurrLocation()
             currentLocation.isMyLocation = true
-            currentLocation.lastUpdated=getCurrentTimestamp()
+            currentLocation.lastUpdated = getCurrentTimestamp()
             currentLocation.lat = location.latitude
             currentLocation.lng = location.longitude
-            //currentLocation.locationName = Helper.geoCodeLocation(location)
-            //val existingLocation=repository.weatherDao.getCurrentLocation()
-            repository.weatherDao.saveCurrentLocation(currentLocation)
+            currentLocation.locationName = Helper.geoCodeLocation(location)
+            repository.saveCurrentLocation(currentLocation)
         }
     }
 

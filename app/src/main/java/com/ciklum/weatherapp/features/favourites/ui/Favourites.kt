@@ -59,6 +59,7 @@ class Favourites : BaseFragment() {
 
         with(binding.rvFavourites)
         {
+            itemAnimator = null
             adapterFavourites = AdapterFavourites()
             adapter = adapterFavourites
             layoutManager = LinearLayoutManager(
@@ -69,9 +70,8 @@ class Favourites : BaseFragment() {
         }
 
         adapterFavourites.setOnItemClickListener { location ->
-            viewModel.removeNewFavourite(location)
+            viewModel.removeFavourite(location)
         }
-
     }
 
     private fun fetchFavourites() {

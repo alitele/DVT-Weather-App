@@ -29,6 +29,8 @@
     <string name="waiting_to_fetching_live_location">Waiting To Fetching Live Location,\nmake sure location is Enabled from settings</string>
     <string name="delete_image">delete image</string>
     <string name="image_condition_icon">condition icon</string>
+    <string name="no_favourites_found">No favourites found</string>
+    <string name="current_location_icon">Current Location Icon</string>
 
     <string-array name="city_list">
         <item>Bangkok</item>

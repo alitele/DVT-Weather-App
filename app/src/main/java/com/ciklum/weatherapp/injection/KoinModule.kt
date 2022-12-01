@@ -13,6 +13,8 @@ import com.ciklum.weatherapp.features.favourites.viewmodel.FavouritesViewModel
 import com.ciklum.weatherapp.features.home.repository.HomeRepository
 import com.ciklum.weatherapp.features.home.repository.HomeRepositoryImpl
 import com.ciklum.weatherapp.features.home.viewmodel.HomeViewModel
+import com.ciklum.weatherapp.features.main.repository.MainRepository
+import com.ciklum.weatherapp.features.main.repository.MainRepositoryImpl
 import com.ciklum.weatherapp.features.main.viewmodel.MainViewModel
 import com.ciklum.weatherapp.network.api.Endpoints
 import com.ciklum.weatherapp.utils.AppConfigs
@@ -43,7 +45,7 @@ val appModule = module {
 }
 
 val viewModelModule = module {
-    viewModel { MainViewModel() }
+    viewModel { MainViewModel(repository = get()) }
     viewModel { HomeViewModel(repository = get()) }
     viewModel { FavouritesViewModel(repository = get()) }
 }
@@ -95,14 +97,19 @@ val databaseModule = module {
 
 val repositoryModule = module {
 
-    fun provideFavRepository(context: Context, dao: LocationDao): FavouritesRepository {
-        return FavouritesRepositoryImpl(context, dao)
+    fun provideFavRepository(dao: LocationDao): FavouritesRepository {
+        return FavouritesRepositoryImpl(dao)
     }
-    single { provideFavRepository(androidContext(), get()) }
+    single { provideFavRepository(get()) }
 
-    fun provideHomeRepository(api: Endpoints, context: Context, dao: LocationDao): HomeRepository {
-        return HomeRepositoryImpl(api, context, dao)
+    fun provideHomeRepository(api: Endpoints, dao: LocationDao): HomeRepository {
+        return HomeRepositoryImpl(api, dao)
     }
-    single { provideHomeRepository(get(), androidContext(), get()) }
+    single { provideHomeRepository(get(), get()) }
+
+    fun provideMainRepository(dao: LocationDao): MainRepository {
+        return MainRepositoryImpl(dao)
+    }
+    single { provideMainRepository(get()) }
 
 }
