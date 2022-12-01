@@ -1,6 +1,5 @@
 package com.ciklum.weatherapp.features.home.repository
 
-import android.util.Log
 import com.ciklum.weatherapp.BuildConfig
 import com.ciklum.weatherapp.app.WeatherApp
 import com.ciklum.weatherapp.commons.Constants.UNIT_TYPE

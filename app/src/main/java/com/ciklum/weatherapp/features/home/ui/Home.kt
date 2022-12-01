@@ -18,7 +18,6 @@ import com.ciklum.weatherapp.extentions.gone
 import com.ciklum.weatherapp.extentions.notNull
 import com.ciklum.weatherapp.extentions.visible
 import com.ciklum.weatherapp.features.home.viewmodel.HomeViewModel
-import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Home : Fragment() {

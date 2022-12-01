@@ -2,7 +2,6 @@ package com.ciklum.weatherapp.features.main.repository
 
 import com.ciklum.weatherapp.database.daos.LocationDao
 import com.ciklum.weatherapp.database.entities.LocationEntity
-import com.ciklum.weatherapp.extentions.isNull
 
 class MainRepositoryImpl(
     private val dao: LocationDao
